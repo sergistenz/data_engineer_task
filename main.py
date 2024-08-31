@@ -159,6 +159,7 @@ with pd.ExcelWriter('Task_output.xlsx', engine='openpyxl') as writer:
         df = pd.DataFrame([movie_details])
         #Transposing the Data Frame for a better look
         df = df.T
+
         #cleaning the movie title to avoid error in naming the sheet
         key_clean = re.sub(r'[\\/?:*|"<>]', '', key) 
         key_clean = key_clean[:31]
@@ -190,7 +191,7 @@ with pd.ExcelWriter('Task_output.xlsx', engine='openpyxl') as writer:
         box_office_data = []
         #finding the relevant rows from the movie_database
         for keys,values in movie_dataset.items():
-            #removing the date from the key for an easier search
+            #removing the date from the key to compare the movie titles
             trimmed_key = keys.split('_')[0]
             #checking we are on the right row for that movie
             if trimmed_key == key:
@@ -218,11 +219,6 @@ with pd.ExcelWriter('Task_output.xlsx', engine='openpyxl') as writer:
             worksheet.cell(row=next_free_row, column=6, value=site_average)  # Column E
             worksheet.cell(row=next_free_row, column=7, value=total_gross_to_date)  # Column F
             next_free_row += 1
-
-
-
-
-
 
 print("Task Output file created successfully.")
 
